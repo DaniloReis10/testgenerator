@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <title>Testgenerator - Tópicos</title>
+    </head>
+    <body>
+		<div class="container">
+			<div class="col-lg-4">
+			</div>
+			<div class="col-lg-4">
+				<fieldset>
+					<legend>Lista de Tópicos</legend>
+				</fieldset>
+				<a href="novo_topico.html" class="right">+ Novo tópico</a><br />
+				<a href="novo_disciplina.html" class="right">+ Nova disciplina</a>
+				
+				<div class="row">
+					<table class="table table-striped table-hover text-center table-bordered">
+						<thead>
+							<tr>
+								<th class="text-center">ID</th>
+								<th class="text-center">Disciplina</th>
+								<th class="text-center">Tópico</th>
+								<th class="text-center">Ações</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>Tecnologias Internet I</td>
+								<td>JSP</td>
+								<td>
+									<a href="editar_topico.html">Editar</a>
+									<a href="javascript:void(0);" onclick="test.deletar();">Excluir</a>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>2</td>
+								<td>Tecnologias Internet I</td>
+								<td>Ajax</td>
+								<td>
+									<a href="editar_topico.html">Editar</a>
+									<a href="javascript:void(0);" onclick="test.deletar();">Excluir</a>
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col-lg-4">
+			</div>
+		</div>
+	</body>
+</html>
+
+<script type="text/javascript">
+	function testgenerator()
+	{
+		this.deletar = deletar;
+		function deletar()
+		{
+			var confirmacao = confirm('Tem certeza que deseja deletar este registro?');
+			if (confirmacao)
+				alert('Registro removido');
+		}
+	}
+	
+	var test = new testgenerator();
+</script>
