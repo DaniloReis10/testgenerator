@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <title>Testgenerator - Tópicos</title>
+    </head>
+    <body>
+		<div class="container">
+			<div class="col-lg-4">
+			</div>
+			<div class="col-lg-4">
+				<fieldset>
+					<legend>Adicionar tópico</legend>
+				</fieldset>
+				
+				<div class="row">
+					<form class="form-horizontal" id="novaDisciplina" action="" method="post">
+						<div class="form-group">
+							<label for="inputDisciplina" class="col-lg-3 control-label">Disciplina</label>
+							<div class="col-lg-9">
+								<select class="form-control" id="inputDisciplina" name="inputDisciplina">
+									<option value="">Selecione...</option>
+									<option value="1">Tecnologias Internet I</option>
+									<option value="2">Tecnologias Internet II</option>
+									<option value="3">Estrutura de Dados</option>
+									<option value="4">Teoria dos Grafos</option>
+								</select>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="inputNome" class="col-lg-3 control-label">Nome</label>
+							<div class="col-lg-9">
+								<input type="text" class="form-control" id="inputNome" name="inputNome" placeholder="Nome descritivo do tópico" value="">
+							</div>
+						</div>
+
+						
+						<div class="form-group">
+							<div class="col-lg-3 col-lg-offset-9">
+								<button type="submit" class="btn btn-primary">Salvar</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="col-lg-4">
+			</div>
+		</div>
+	</body>
+</html>
