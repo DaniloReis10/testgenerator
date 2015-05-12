@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        <title>Tabela de provas</title>
+    </head>
+    <body>
+		<div class="container">
+            <h3>Lista de provas</h3>
+            <hr>
+            <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                        <th>Disciplina</th>
+                        <th>Tópico</th>
+                        <th>Qtd de questões</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cáculo</td>
+                        <td>Funções</td>
+                        <td>10</td>
+                        <td><a href="mostra-prova.html">Ver prova</a> | 
+                        <a href="#" class="excluir">Excluir</a> | <a href="prova.html">Fazer prova</a></td>
+                    </tr>
+                    <tr>
+                        <td>História</td>
+                        <td>História do Brasil</td>
+                        <td>8</td>
+                        <td><a href="mostra-prova.html">Ver prova</a> | 
+                        <a href="#" class="excluir">Excluir</a> | <a href="prova.html">Fazer prova</a></td>
+                    </tr>
+                    <tr>
+                        <td>Matemática</td>
+                        <td>Conjuntos</td>
+                        <td>7</td>
+                        <td><a href="mostra-prova.html">Ver prova</a> | 
+                        <a href="#" class="excluir">Excluir</a> | <a href="prova.html">Fazer prova</a></td>
+                    </tr>
+                    <tr>
+                        <td>Cálculo numérico</td>
+                        <td>Zeros de função</td>
+                        <td>5</td>
+                        <td><a href="mostra-prova.html">Ver prova</a> | 
+                        <a class="excluir">Excluir</a> | <a href="prova.html">Fazer prova</a></td>
+                    </tr>
+                </tbody>
+	       </table>
+        </div>
+	</body>
+    <script type="text/javascript">
+    window.onload = function(){
+        var a = document.getElementsByTagName("a");
+        for(var i=0 ; i < a.length ; i++){
+            if(a[i].className == "excluir"){
+            a[i].onclick = function(){
+                var yes = confirm('Tem certeza que deseja deletar este registro?');
+                if (yes)
+                    alert('Registro removido');
+            }
+        }
+    }
+    }
+</script>
+</html>
+
