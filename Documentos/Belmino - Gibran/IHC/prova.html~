@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        <title>Realizar prova</title>
+        <style type="text/css" media="screen">
+            .conteudo{
+                text-align: justify;
+                margin-left: 40%; 
+            }
+            .anterior{
+                margin-top: 20px;
+                margin-left: 20%;
+            }
+            .proximo{
+                margin-top: 20px;
+                margin-left: 40%;
+            }
+            .finalizar{
+                position: absolute;
+                top: 30px;
+                right: 100px;
+            }
+        </style>
+    </head>
+    <body>
+		<div class="container">
+            <h3>Fazer prova</h3>
+            <hr>
+			<form action="">
+		        <a class="btn btn-success finalizar">Finalizar</a>
+		        <div class="conteudo">
+					<div style="display:block" id="q1" >
+				        <p><h3>1. Quem descobriu o Brasil?</h3></p>
+				        <p><input type="radio" value="voce" name="resposta">   Você</p>
+				        <p><input type="radio" value="pedro alvares cabral" name="resposta"> Pedro Alvares Cabral</p>
+				        <p><input type="radio" value="monteiro lobato" name="resposta"> Monteiro Lobato</p>
+				        <p><input type="radio" value="tiradentes" name="resposta"> Tiradentes</p>
+					</div>
+					<div style="display:none" id="q2" >
+				        <p><h3>2. Quem descobriu a América?</h3></p>
+				        <p><input type="radio" value="voce" name="resposta">   Você</p>
+				        <p><input type="radio" value="pedro alvares cabral" name="resposta"> Cristóvão Colombo</p>
+				        <p><input type="radio" value="monteiro lobato" name="resposta"> Monteiro Lobato</p>
+				        <p><input type="radio" value="tiradentes" name="resposta"> Tiradentes</p>
+					</div>
+		        </div>
+			</form>
+        <button id="btAnterior" class="btn btn-primary anterior" disabled >Anterior</button>
+        <button id="btPosterior" class="btn btn-primary proximo">Próxima</button>
+        </div>
+	</body>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript">
+	
+	var paginaAtual = 0;
+	var totalPagina = 2;
+
+    window.onload = function(){
+        var a = document.getElementsByTagName("a")[0];
+            if(a.className.indexOf("finalizar") > 0){
+            a.onclick = function(){
+                var yes = confirm('Tem certeza que deseja finalizar?');
+                if (yes){
+                    a.href = "resultado.html";
+                }
+            }
+        }
+    }
+
+	
+	$("#btPosterior").click(function(){
+	    if(paginaAtual < totalPagina){
+		$("#q"+paginaAtual).hide();
+		paginaAtual++;
+		$("#q"+paginaAtual).show();
+	    }
+	    if(paginaAtual > 1){
+		$("#btAnterior").prop("disabled", false);
+	    }
+	    if(paginaAtual == totalPagina){
+		$("#btPosterior").prop("disabled", true);
+	    }
+	    
+	});
+	$("#btAnterior").click(function(){
+	    if(paginaAtual > 1){
+		$("#q"+paginaAtual).hide();
+		paginaAtual--;
+		$("#q"+paginaAtual).show();
+	    }
+	    if(paginaAtual < totalPagina){
+		$("#btPosterior").prop("disabled", false);
+	    }
+	    if(paginaAtual == 1){
+		$("#btAnterior").prop("disabled", true);
+	    }
+	    
+	});
+</script>
+</html>
+
