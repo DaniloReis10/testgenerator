@@ -41,8 +41,7 @@ public class Questoes implements Cloneable, Serializable {
     private String questoes;
     private String respostas;
     
-    // como sugerido criação de uma lista de topicos e os gets e sets !!!!
-    private List<Topico> listtopico;
+  
 
 
 
@@ -90,12 +89,7 @@ public class Questoes implements Cloneable, Serializable {
     public void setRespostas(String respostasIn) {
           this.respostas = respostasIn;
     }
-    public Topico getlistTopico(){
-    	 return (Topico) this.listtopico;
-    }
-    public void setlisttopico(List<Topico> list){
-    	this.listtopico = list;
-    }
+  
 
 
 
