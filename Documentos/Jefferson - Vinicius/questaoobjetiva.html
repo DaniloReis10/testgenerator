@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+  <title>Objetiva</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+<center><h3><p class="text-primary">Cadastro de questão</p><h3>
+<h5><span class="label label-default">Materia</span>
+<span class="label label-primary">Topico</span></h5>
+</center>
+
+<ul class="nav nav-pills">
+  <li role="presentation" class="active"><a href="#">Tipo:</a></li>
+  <li role="presentation"><a href="questaosubjetiva.html">Subjetiva</a></li>
+  <li role="presentation"><a href="questaoobjetiva.html">Objetiva</a></li>
+  <li role="presentation"><a href="questaovf.html">V ou F</a></li>
+</ul>
+<br></br>
+<form class="form-horizontal" role="form" id = "cadastroquestao" method = "get">
+<p class="text-primary">Nivel da questão</p>
+ <label class="radio-inline">
+  <input type="radio" name="nivel" value= "1" checked>1
+ </label>
+ <label class="radio-inline">
+  <input type="radio" name="nivel" value= "2"> 2
+ </label>
+ <label class="radio-inline">
+  <input type="radio" name="nivel" value= "3"> 3
+ </label>
+<label class="radio-inline">
+  <input type="radio" name="nivel" value = "4"> 4
+</label>
+<label class="radio-inline">
+  <input type="radio" name="nivel" value= "5"> 5
+</label> 
+
+<br></br>
+<div class="input-group">
+  <span class="input-group-addon" id="questao">Q:</span>
+  <input type="text" class="form-control" placeholder="Questao" required aria-describedby="basic-addon1">
+</div>
+<br></br>
+<p class="text-primary">Resposta da questao:</p>
+ <label class="radio-inline">
+  <input type="radio" name="Resposta" value= "A" >A
+ </label>
+ <label class="radio-inline">
+  <input type="radio" name="Resposta" value= "B">B
+ </label>
+ <label class="radio-inline">
+  <input type="radio" name="Resposta" value= "C">C
+ </label>
+<label class="radio-inline">
+  <input type="radio" name="Resposta" value = "D">D
+</label>
+<label class="radio-inline">
+  <input type="radio" name="Resposta" value= "E">E
+</label>
+<br></br>
+
+<button type="submit" class="btn btn-primary">
+  <span class="glyphicon glyphicon-thumbs-up"></span>
+  Confirmar 
+</button>
+
+</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<html lang="en">
+<head>
+  <title>V ou F</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+<center><h3><p class="text-primary">Cadastro de questão</p><h3>
+<h5><span class="label label-default">Materia</span>
+<span class="label label-primary">Topico</span></h5>
+</center>
+
+
+<ul class="nav nav-pills">
+  <li role="presentation" class="active"><a href="#">Tipo:</a></li>
+  <li role="presentation"><a href="questaosubjetiva.html">Subjetiva</a></li>
+  <li role="presentation"><a href="questaoobjetiva.html">Objetiva</a></li>
+  <li role="presentation"><a href="questaovf.html">V ou F</a></li>
+</ul>
+<br></br>
+
+<form class="form-horizontal" role="form" id = "cadastroquestao" method = "get">
+<p class="text-primary">Nivel da questão</p>
+
+ <label class="radio-inline">
+  <input type="radio" name="nivel" value= "1" checked>1
+ </label>
+ <label class="radio-inline">
+  <input type="radio" name="nivel" value= "2"> 2
+ </label>
+ <label class="radio-inline">
+  <input type="radio" name="nivel" value= "3"> 3
+ </label>
+<label class="radio-inline">
+  <input type="radio" name="nivel" value = "4"> 4
+</label>
+<label class="radio-inline">
+  <input type="radio" name="nivel" value= "5"> 5
+</label> 
+<br></br>
+<div class="input-group">
+  <span class="input-group-addon" id="intema">A)</span>
+  <input type="text" class="form-control" placeholder="Enuciado" required aria-describedby="basic-addon1">
+</div>
+     
+ <select class="form-control" id="intem1">
+  <option>Verdadeiro</option>
+  <option>Falso</option>
+ </select>
+
+<div class="input-group">
+  <span class="input-group-addon" id="intemb">B)</span>
+  <input type="text" class="form-control" placeholder="Enuciado" required aria-describedby="basic-addon1">
+</div>
+     
+ <select class="form-control" id="intem2">
+  <option>Verdadeiro</option>
+  <option>Falso</option>
+ </select>
+ 
+ <div class="input-group">
+  <span class="input-group-addon" id="intemc">C)</span>
+  <input type="text" class="form-control" placeholder="Enuciado" required aria-describedby="basic-addon1">
+</div>
+     
+ <select class="form-control" id="intem3">
+  <option>Verdadeiro</option>
+  <option>Falso</option>
+ </select>
+ 
+ <div class="input-group">
+  <span class="input-group-addon" id="intemd">D)</span>
+  <input type="text" class="form-control" placeholder="Enuciado" required aria-describedby="basic-addon1">
+</div>
+     
+ <select class="form-control" id="intem4">
+  <option>Verdadeiro</option>
+  <option>Falso</option>
+ </select>
+
+ <div class="input-group">
+  <span class="input-group-addon" id="inteme">E)</span>
+  <input type="text" class="form-control" placeholder="Enuciado" required aria-describedby="basic-addon1">
+</div>
+     
+ <select class="form-control" id="intem5">
+  <option>Verdadeiro</option>
+  <option>Falso</option>
+ </select>
+ 
+
+ <br></br>
+ <button type="submit" class="btn btn-primary">
+  <span class="glyphicon glyphicon-thumbs-up"></span>
+  Confirmar 
+</button>
+
+</form>
+</body>
+</div>
+</html>
