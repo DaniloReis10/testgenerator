@@ -42,38 +42,46 @@
   <input type="radio" name="nivel" value= "5"> 5
 </label> 
 <br></br>
-<div class="input-group">
-  <span class="input-group-addon" id="intema">A)</span>
-  <input type="text" class="form-control" placeholder="Enuciado" required aria-describedby="basic-addon1">
-</div>
-     
- <select class="form-control" id="intem1">
-  <option>Verdadeiro</option>
-  <option>Falso</option>
- </select>
+<div id="opcoes">
 
+<div id = "1" class="itemunico">
 <div class="input-group">
-  <span class="input-group-addon" id="intemb">B)</span>
+  <span class="input-group-addon" id="intema">1.</span>
   <input type="text" class="form-control" placeholder="Enuciado" required aria-describedby="basic-addon1">
 </div>
-     
- <select class="form-control" id="intem2">
+<select class="form-control" id="intem1">
   <option>Verdadeiro</option>
   <option>Falso</option>
  </select>
+ </div>
  
- <div class="input-group">
-  <span class="input-group-addon" id="intemc">C)</span>
+<div id = "2" class="item">
+<div class="input-group">
+  <span class="input-group-addon" id="intemb">2.</span>
   <input type="text" class="form-control" placeholder="Enuciado" required aria-describedby="basic-addon1">
 </div>
-     
- <select class="form-control" id="intem3">
+
+<select class="form-control" id="intem2">
   <option>Verdadeiro</option>
   <option>Falso</option>
  </select>
- 
+</div>     
+
+<div id = "3" class="item"> 
  <div class="input-group">
-  <span class="input-group-addon" id="intemd">D)</span>
+  <span class="input-group-addon" id="intemc">3.</span>
+  <input type="text" class="form-control" placeholder="Enuciado" required aria-describedby="basic-addon1">
+</div>
+
+<select class="form-control" id="intem3">
+  <option>Verdadeiro</option>
+  <option>Falso</option>
+ </select>
+</div>
+
+ <div id="4" class="item">     
+ <div class="input-group">
+  <span class="input-group-addon" id="intemd">4.</span>
   <input type="text" class="form-control" placeholder="Enuciado" required aria-describedby="basic-addon1">
 </div>
      
@@ -81,24 +89,44 @@
   <option>Verdadeiro</option>
   <option>Falso</option>
  </select>
-
- <div class="input-group">
-  <span class="input-group-addon" id="inteme">E)</span>
-  <input type="text" class="form-control" placeholder="Enuciado" required aria-describedby="basic-addon1">
 </div>
-     
- <select class="form-control" id="intem5">
-  <option>Verdadeiro</option>
-  <option>Falso</option>
- </select>
- 
+
+
+</div>
+
+
+<br></br>
+<center>
+<div class="btn-group btn-group-s">
+    <button type="button" id="btnInserir" class="btn btn-primary">Inserir </button>
+    <button type="button" id="btnRemover" class="btn btn-primary">Remover</button>
+</div>
+</center>
 
  <br></br>
  <button type="submit" class="btn btn-primary">
   <span class="glyphicon glyphicon-thumbs-up"></span>
   Confirmar 
 </button>
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>
+var questao = 4;
+var numero = 4;
+	$("#btnInserir").click(function(){
+        questao++;	
+		$("#opcoes").append('<div class="item"><div class="input-group"> <span class="input-group-addon" id="intemd">'+ questao +'.</span> <input type="text" class="form-control" placeholder="Enuciado" required aria-describedby="basic-addon1"></div><select class="form-control" id="intem4"> <option>Verdadeiro</option><option>Falso</option></select></div>');
+		numero++;
+	})
+	
+    $("#btnRemover").click(function(){
+		$(".item:last").remove();     
+		if(questao > 1){
+		  questao --;
+		}
+		numero--;
+		
+	})
+</script>
 </form>
 </body>
 </div>
