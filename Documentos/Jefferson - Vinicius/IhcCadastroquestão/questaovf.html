@@ -46,7 +46,7 @@
 
 <div id = "1" class="itemunico">
 <div class="input-group">
-  <span class="input-group-addon" id="intema">1.</span>
+  <span class="input-group-addon" id="intema">A)</span>
   <input type="text" class="form-control" placeholder="Enuciado" required aria-describedby="basic-addon1">
 </div>
 <select class="form-control" id="intem1">
@@ -57,7 +57,7 @@
  
 <div id = "2" class="item">
 <div class="input-group">
-  <span class="input-group-addon" id="intemb">2.</span>
+  <span class="input-group-addon" id="intemb">B)</span>
   <input type="text" class="form-control" placeholder="Enuciado" required aria-describedby="basic-addon1">
 </div>
 
@@ -69,7 +69,7 @@
 
 <div id = "3" class="item"> 
  <div class="input-group">
-  <span class="input-group-addon" id="intemc">3.</span>
+  <span class="input-group-addon" id="intemc">C)</span>
   <input type="text" class="form-control" placeholder="Enuciado" required aria-describedby="basic-addon1">
 </div>
 
@@ -81,7 +81,7 @@
 
  <div id="4" class="item">     
  <div class="input-group">
-  <span class="input-group-addon" id="intemd">4.</span>
+  <span class="input-group-addon" id="intemd">D)</span>
   <input type="text" class="form-control" placeholder="Enuciado" required aria-describedby="basic-addon1">
 </div>
      
@@ -112,15 +112,18 @@
 <script>
 var questao = 4;
 var numero = 4;
+var item = ["","A","B","C","D","E","F","G","H","I","J","L","M","N","O","P","Q","R","S","T","U","V","X","Z","z+"];
 	$("#btnInserir").click(function(){
-        questao++;	
-		$("#opcoes").append('<div class="item"><div class="input-group"> <span class="input-group-addon" id="intemd">'+ questao +'.</span> <input type="text" class="form-control" placeholder="Enuciado" required aria-describedby="basic-addon1"></div><select class="form-control" id="intem4"> <option>Verdadeiro</option><option>Falso</option></select></div>');
+        if(questao > 0 && questao < 24){
+		  questao ++;
+		}       
+	   $("#opcoes").append('<div class="item"><div class="input-group"> <span class="input-group-addon" id="intemd">'+ item[questao] +')</span> <input type="text" class="form-control" placeholder="Enuciado" required aria-describedby="basic-addon1"></div><select class="form-control" id="intem4"> <option>Verdadeiro</option><option>Falso</option></select></div>');
 		numero++;
 	})
 	
     $("#btnRemover").click(function(){
 		$(".item:last").remove();     
-		if(questao > 1){
+		if(questao > 1 && questao < 24){
 		  questao --;
 		}
 		numero--;
