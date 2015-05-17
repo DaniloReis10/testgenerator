@@ -1,4 +1,5 @@
 package entities;
+
 import java.io.*;
 import java.sql.*;
 import java.util.*;
@@ -30,15 +31,15 @@ import java.math.*;
 
 
 
-public class Disciplina implements Cloneable, Serializable {
+public class Disciplina implements Cloneable, Serializable 
+{
 
     /** 
      * Persistent Instance variables. This data is directly 
      * mapped to the columns of database table.
      */
-    private int id;
-    private String nome;
-
+    private int ID;
+    private String DisciplinaNome;
 
 
     /** 
@@ -48,14 +49,14 @@ public class Disciplina implements Cloneable, Serializable {
      * argument, which is the primary key of the corresponding table.
      */
 
-    public Disciplina () {
-
+    public Disciplina() 
+	{
     }
 
-    public Disciplina (int idIn) {
-
-          this.id = idIn;
-
+    public Disciplina (int ID, String DisciplinaNome) 
+	{
+		this.ID = ID;
+		this.DisciplinaNome = DisciplinaNome;
     }
 
 
@@ -65,21 +66,22 @@ public class Disciplina implements Cloneable, Serializable {
      * so these might require some manual additions.
      */
 
-    public int getId() {
-          return this.id;
+    public int getID() 
+	{
+          return this.ID;
     }
-    public void setId(int idIn) {
-          this.id = idIn;
-    }
-
-    public String getNome() {
-          return this.nome;
-    }
-    public void setNome(String nomeIn) {
-          this.nome = nomeIn;
+    public void setID(int ID) {
+          this.ID = ID;
     }
 
-
+    public String getDisciplinaNome() 
+	{
+          return this.DisciplinaNome;
+    }
+    public void setDisciplinaNome(String DisciplinaNome) 
+	{
+          this.DisciplinaNome = DisciplinaNome;
+    }
 
     /** 
      * setAll allows to set all persistent variables in one method call.
@@ -89,12 +91,11 @@ public class Disciplina implements Cloneable, Serializable {
      * individual set-methods.
      */
 
-    public void setAll(int idIn,
-          String nomeIn) {
-          this.id = idIn;
-          this.nome = nomeIn;
+    public void setAll(int ID, String DisciplinaNome) 
+	{
+          this.ID = ID;
+          this.DisciplinaNome = DisciplinaNome;
     }
-
 
     /** 
      * hasEqualMapping-method will compare two Disciplina instances
@@ -103,19 +104,18 @@ public class Disciplina implements Cloneable, Serializable {
      * are the same instance. However it does mean that in that moment, they 
      * are mapped to the same row in database.
      */
-    public boolean hasEqualMapping(Disciplina valueObject) {
+    public boolean hasEqualMapping(Disciplina valueObject) 
+	{
+		if (valueObject.getID() != this.ID) 
+			return(false);
 
-          if (valueObject.getId() != this.id) {
-                    return(false);
-          }
-          if (this.nome == null) {
-                    if (valueObject.getNome() != null)
-                           return(false);
-          } else if (!this.nome.equals(valueObject.getNome())) {
-                    return(false);
-          }
+		if (this.DisciplinaNome == null) 
+			if (valueObject.getDisciplinaNome() != null)
+			   return(false);
+		else if (!this.DisciplinaNome.equals(valueObject.getDisciplinaNome())) 
+			return(false);
 
-          return true;
+		return true;
     }
 
 
@@ -125,13 +125,9 @@ public class Disciplina implements Cloneable, Serializable {
      * valueObject. This is useful during application development, and 
      * possibly when application is writing object states in textlog.
      */
-    public String toString() {
-        StringBuffer out = new StringBuffer(this.getDaogenVersion());
-        out.append("\nclass Disciplina, mapping to table Disciplina\n");
-        out.append("Persistent attributes: \n"); 
-        out.append("id = " + this.id + "\n"); 
-        out.append("nome = " + this.nome + "\n"); 
-        return out.toString();
+    public String toString() 
+	{ 
+        return this.DisciplinaNome;
     }
 
 
@@ -141,22 +137,22 @@ public class Disciplina implements Cloneable, Serializable {
      * is defined in java.lang.Object. Here, the retuned cloned object
      * will also have all its attributes cloned.
      */
-    public Object clone() {
+    public Object clone() 
+	{
         Disciplina cloned = new Disciplina();
-
-        cloned.setId(this.id); 
-        if (this.nome != null)
-             cloned.setNome(new String(this.nome)); 
+		
+        cloned.setID(this.ID); 
+        if (this.DisciplinaNome != null)
+			cloned.setDisciplinaNome(new String(this.DisciplinaNome)); 
         return cloned;
     }
-
-
 
     /** 
      * getDaogenVersion will return information about
      * generator which created these sources.
      */
-    public String getDaogenVersion() {
+    public String getDaogenVersion() 
+	{
         return "DaoGen version 2.4.1";
     }
 

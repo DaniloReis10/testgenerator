@@ -31,19 +31,18 @@ import java.math.*;
 
 
 
-public class Topico implements Cloneable, Serializable {
-
-  
+public class Topico implements Cloneable, Serializable 
+{
 	private static final long serialVersionUID = 2448383518547915732L;
 	
 	/** 
      * Persistent Instance variables. This data is directly 
      * mapped to the columns of database table.
      */
-    private int idtopico;
-    private String topico;
-
-
+    private int ID;
+	private int DisciplinaId;
+	private String TopicoNome;
+	private int CargaHoraria;
 
     /** 
      * Constructors. DaoGen generates two constructors by default.
@@ -52,37 +51,63 @@ public class Topico implements Cloneable, Serializable {
      * argument, which is the primary key of the corresponding table.
      */
 
-    public Topico () {
-
+    public Topico() 
+	{
     }
 
-    public Topico (int idtopicoIn) {
-
-          this.idtopico = idtopicoIn;
-
+    public Topico(int ID, int DisciplinaId, String TopicoNome, int CargaHoraria) 
+	{
+		this.ID = ID;
+		this.DisciplinaId = DisciplinaId;
+		this.TopicoNome = TopicoNome;
+		this.CargaHoraria = CargaHoraria;
     }
-
-
+    
     /** 
      * Get- and Set-methods for persistent variables. The default
      * behaviour does not make any checks against malformed data,
      * so these might require some manual additions.
      */
 
-    public int getIdtopico() {
-          return this.idtopico;
-    }
-    public void setIdtopico(int idtopicoIn) {
-          this.idtopico = idtopicoIn;
-    }
+    public int getID() 
+    {
+		return ID;
+	}
 
-    public String gettopico() {
-          return this.topico;
-    }
-    public void settopico(String topicoIn) {
-          this.topico = topicoIn;
-    }
+	public void setID(int iD) 
+	{
+		ID = iD;
+	}
 
+	public int getDisciplinaId() 
+	{
+		return DisciplinaId;
+	}
+
+	public void setDisciplinaId(int disciplinaId) 
+	{
+		DisciplinaId = disciplinaId;
+	}
+
+	public String getTopicoNome() 
+	{
+		return TopicoNome;
+	}
+
+	public void setTopicoNome(String topicoNome)
+	{
+		TopicoNome = topicoNome;
+	}
+
+	public int getCargaHoraria() 
+	{
+		return CargaHoraria;
+	}
+
+	public void setCargaHoraria(int cargaHoraria) 
+	{
+		CargaHoraria = cargaHoraria;
+	}
 
 
     /** 
@@ -93,10 +118,12 @@ public class Topico implements Cloneable, Serializable {
      * individual set-methods.
      */
 
-    public void setAll(int idtopicoIn,
-          String topicoIn) {
-          this.idtopico = idtopicoIn;
-          this.topico = topicoIn;
+    public void setAll(int ID, int DisciplinaId, String TopicoNome, int CargaHoraria) 
+    {
+    	this.ID = ID;
+    	this.DisciplinaId = DisciplinaId;
+    	this.TopicoNome = TopicoNome;
+    	this.CargaHoraria = CargaHoraria;
     }
 
 
@@ -107,19 +134,21 @@ public class Topico implements Cloneable, Serializable {
      * are the same instance. However it does mean that in that moment, they 
      * are mapped to the same row in database.
      */
-    public boolean hasEqualMapping(Topico valueObject) {
-
-          if (valueObject.getIdtopico() != this.idtopico) {
-                    return(false);
-          }
-          if (this.topico == null) {
-                    if (valueObject.gettopico() != null)
-                           return(false);
-          } else if (!this.topico.equals(valueObject.gettopico())) {
-                    return(false);
-          }
-
-          return true;
+    public boolean hasEqualMapping(Topico valueObject) 
+    {
+		if (valueObject.getID() != this.ID)
+            return(false);
+		if (valueObject.getDisciplinaId() != this.DisciplinaId)
+		            return(false);
+		if (this.TopicoNome == null)
+			if (valueObject.getTopicoNome() != null)
+				return(false);
+		else if (!this.TopicoNome.equals(valueObject.getTopicoNome()))
+		            return(false);
+		if (valueObject.getCargaHoraria() != this.CargaHoraria)
+			return(false);
+		
+		  return true;
     }
 
 
@@ -129,13 +158,9 @@ public class Topico implements Cloneable, Serializable {
      * valueObject. This is useful during application development, and 
      * possibly when application is writing object states in textlog.
      */
-    public String toString() {
-        StringBuffer out = new StringBuffer(this.getDaogenVersion());
-        out.append("\nclass Topico, mapping to table Topico\n");
-        out.append("Persistent attributes: \n"); 
-        out.append("idtopico = " + this.idtopico + "\n"); 
-        out.append("topico = " + this.topico + "\n"); 
-        return out.toString();
+    public String toString() 
+    {
+        return this.TopicoNome;
     }
 
 
@@ -145,22 +170,26 @@ public class Topico implements Cloneable, Serializable {
      * is defined in java.lang.Object. Here, the retuned cloned object
      * will also have all its attributes cloned.
      */
-    public Object clone() {
-        Topico cloned = new Topico();
+    public Object clone() 
+    {
+    	Topico cloned = new Topico();
 
-        cloned.setIdtopico(this.idtopico); 
-        if (this.topico != null)
-             cloned.settopico(new String(this.topico)); 
-        return cloned;
+		cloned.setID(this.ID); 
+		cloned.setDisciplinaId(this.DisciplinaId); 
+		if (this.TopicoNome != null)
+		     cloned.setTopicoNome(new String(this.TopicoNome)); 
+		cloned.setCargaHoraria(this.CargaHoraria); 
+		
+		return cloned;
     }
-
 
 
     /** 
      * getDaogenVersion will return information about
      * generator which created these sources.
      */
-    public String getDaogenVersion() {
+    public String getDaogenVersion() 
+    {
         return "DaoGen version 2.4.1";
     }
 
