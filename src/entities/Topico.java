@@ -6,8 +6,8 @@ import java.util.*;
 import java.math.*;
 
  /**
-  * Disciplina Value Object.
-  * This class is value object representing database table Disciplina
+  * Topico Value Object.
+  * This class is value object representing database table Topico
   * This class is intented to be used together with associated Dao object.
   */
 
@@ -31,16 +31,18 @@ import java.math.*;
 
 
 
-public class Disciplina implements Cloneable, Serializable 
+public class Topico implements Cloneable, Serializable 
 {
-
-    /** 
+	private static final long serialVersionUID = 2448383518547915732L;
+	
+	/** 
      * Persistent Instance variables. This data is directly 
      * mapped to the columns of database table.
      */
     private int ID;
-    private String DisciplinaNome;
-
+	private int DisciplinaId;
+	private String TopicoNome;
+	private int CargaHoraria;
 
     /** 
      * Constructors. DaoGen generates two constructors by default.
@@ -49,17 +51,18 @@ public class Disciplina implements Cloneable, Serializable
      * argument, which is the primary key of the corresponding table.
      */
 
-    public Disciplina() 
+    public Topico() 
 	{
     }
 
-    public Disciplina (int ID, String DisciplinaNome) 
+    public Topico(int ID, int DisciplinaId, String TopicoNome, int CargaHoraria) 
 	{
 		this.ID = ID;
-		this.DisciplinaNome = DisciplinaNome;
+		this.DisciplinaId = DisciplinaId;
+		this.TopicoNome = TopicoNome;
+		this.CargaHoraria = CargaHoraria;
     }
-
-
+    
     /** 
      * Get- and Set-methods for persistent variables. The default
      * behaviour does not make any checks against malformed data,
@@ -67,21 +70,45 @@ public class Disciplina implements Cloneable, Serializable
      */
 
     public int getID() 
-	{
-          return this.ID;
-    }
-    public void setID(int ID) {
-          this.ID = ID;
-    }
+    {
+		return ID;
+	}
 
-    public String getDisciplinaNome() 
+	public void setID(int iD) 
 	{
-          return this.DisciplinaNome;
-    }
-    public void setDisciplinaNome(String DisciplinaNome) 
+		ID = iD;
+	}
+
+	public int getDisciplinaId() 
 	{
-          this.DisciplinaNome = DisciplinaNome;
-    }
+		return DisciplinaId;
+	}
+
+	public void setDisciplinaId(int disciplinaId) 
+	{
+		DisciplinaId = disciplinaId;
+	}
+
+	public String getTopicoNome() 
+	{
+		return TopicoNome;
+	}
+
+	public void setTopicoNome(String topicoNome)
+	{
+		TopicoNome = topicoNome;
+	}
+
+	public int getCargaHoraria() 
+	{
+		return CargaHoraria;
+	}
+
+	public void setCargaHoraria(int cargaHoraria) 
+	{
+		CargaHoraria = cargaHoraria;
+	}
+
 
     /** 
      * setAll allows to set all persistent variables in one method call.
@@ -91,31 +118,37 @@ public class Disciplina implements Cloneable, Serializable
      * individual set-methods.
      */
 
-    public void setAll(int ID, String DisciplinaNome) 
-	{
-          this.ID = ID;
-          this.DisciplinaNome = DisciplinaNome;
+    public void setAll(int ID, int DisciplinaId, String TopicoNome, int CargaHoraria) 
+    {
+    	this.ID = ID;
+    	this.DisciplinaId = DisciplinaId;
+    	this.TopicoNome = TopicoNome;
+    	this.CargaHoraria = CargaHoraria;
     }
 
+
     /** 
-     * hasEqualMapping-method will compare two Disciplina instances
+     * hasEqualMapping-method will compare two Topico instances
      * and return true if they contain same values in all persistent instance 
      * variables. If hasEqualMapping returns true, it does not mean the objects
      * are the same instance. However it does mean that in that moment, they 
      * are mapped to the same row in database.
      */
-    public boolean hasEqualMapping(Disciplina valueObject) 
-	{
-		if (valueObject.getID() != this.ID) 
+    public boolean hasEqualMapping(Topico valueObject) 
+    {
+		if (valueObject.getID() != this.ID)
+            return(false);
+		if (valueObject.getDisciplinaId() != this.DisciplinaId)
+		            return(false);
+		if (this.TopicoNome == null)
+			if (valueObject.getTopicoNome() != null)
+				return(false);
+		else if (!this.TopicoNome.equals(valueObject.getTopicoNome()))
+		            return(false);
+		if (valueObject.getCargaHoraria() != this.CargaHoraria)
 			return(false);
-
-		if (this.DisciplinaNome == null) 
-			if (valueObject.getDisciplinaNome() != null)
-			   return(false);
-		else if (!this.DisciplinaNome.equals(valueObject.getDisciplinaNome())) 
-			return(false);
-
-		return true;
+		
+		  return true;
     }
 
 
@@ -126,8 +159,8 @@ public class Disciplina implements Cloneable, Serializable
      * possibly when application is writing object states in textlog.
      */
     public String toString() 
-	{ 
-        return this.DisciplinaNome;
+    {
+        return this.TopicoNome;
     }
 
 
@@ -138,23 +171,26 @@ public class Disciplina implements Cloneable, Serializable
      * will also have all its attributes cloned.
      */
     public Object clone() 
-	{
-        Disciplina cloned = new Disciplina();
+    {
+    	Topico cloned = new Topico();
+
+		cloned.setID(this.ID); 
+		cloned.setDisciplinaId(this.DisciplinaId); 
+		if (this.TopicoNome != null)
+		     cloned.setTopicoNome(new String(this.TopicoNome)); 
+		cloned.setCargaHoraria(this.CargaHoraria); 
 		
-        cloned.setID(this.ID); 
-        if (this.DisciplinaNome != null)
-			cloned.setDisciplinaNome(new String(this.DisciplinaNome)); 
-        return cloned;
+		return cloned;
     }
+
 
     /** 
      * getDaogenVersion will return information about
      * generator which created these sources.
      */
     public String getDaogenVersion() 
-	{
+    {
         return "DaoGen version 2.4.1";
     }
 
 }
-

@@ -6,8 +6,8 @@ import java.util.*;
 import java.math.*;
 
  /**
-  * Disciplina Value Object.
-  * This class is value object representing database table Disciplina
+  * Questoes Value Object.
+  * This class is value object representing database table Questoes 
   * This class is intented to be used together with associated Dao object.
   */
 
@@ -31,15 +31,18 @@ import java.math.*;
 
 
 
-public class Disciplina implements Cloneable, Serializable 
-{
+public class Questoes implements Cloneable, Serializable {
 
     /** 
      * Persistent Instance variables. This data is directly 
      * mapped to the columns of database table.
      */
-    private int ID;
-    private String DisciplinaNome;
+    private int idquestao;
+    private String questoes;
+    private String respostas;
+    
+  
+
 
 
     /** 
@@ -49,14 +52,14 @@ public class Disciplina implements Cloneable, Serializable
      * argument, which is the primary key of the corresponding table.
      */
 
-    public Disciplina() 
-	{
+    public Questoes () {
+
     }
 
-    public Disciplina (int ID, String DisciplinaNome) 
-	{
-		this.ID = ID;
-		this.DisciplinaNome = DisciplinaNome;
+    public Questoes (int idquestaoIn) {
+
+          this.idquestao = idquestaoIn;
+
     }
 
 
@@ -66,22 +69,29 @@ public class Disciplina implements Cloneable, Serializable
      * so these might require some manual additions.
      */
 
-    public int getID() 
-	{
-          return this.ID;
+    public int getIdquestao() {
+          return this.idquestao;
     }
-    public void setID(int ID) {
-          this.ID = ID;
+    public void setIdquestao(int idquestaoIn) {
+          this.idquestao = idquestaoIn;
     }
 
-    public String getDisciplinaNome() 
-	{
-          return this.DisciplinaNome;
+    public String getQuestoes() {
+          return this.questoes;
     }
-    public void setDisciplinaNome(String DisciplinaNome) 
-	{
-          this.DisciplinaNome = DisciplinaNome;
+    public void setQuestoes(String questoesIn) {
+          this.questoes = questoesIn;
     }
+
+    public String getRespostas() {
+          return this.respostas;
+    }
+    public void setRespostas(String respostasIn) {
+          this.respostas = respostasIn;
+    }
+  
+
+
 
     /** 
      * setAll allows to set all persistent variables in one method call.
@@ -91,31 +101,41 @@ public class Disciplina implements Cloneable, Serializable
      * individual set-methods.
      */
 
-    public void setAll(int ID, String DisciplinaNome) 
-	{
-          this.ID = ID;
-          this.DisciplinaNome = DisciplinaNome;
+    public void setAll(int idquestaoIn,
+          String questoesIn,
+          String respostasIn) {
+          this.idquestao = idquestaoIn;
+          this.questoes = questoesIn;
+          this.respostas = respostasIn;
     }
 
+
     /** 
-     * hasEqualMapping-method will compare two Disciplina instances
+     * hasEqualMapping-method will compare two Questoes instances
      * and return true if they contain same values in all persistent instance 
      * variables. If hasEqualMapping returns true, it does not mean the objects
      * are the same instance. However it does mean that in that moment, they 
      * are mapped to the same row in database.
      */
-    public boolean hasEqualMapping(Disciplina valueObject) 
-	{
-		if (valueObject.getID() != this.ID) 
-			return(false);
+    public boolean hasEqualMapping(Questoes valueObject) {
 
-		if (this.DisciplinaNome == null) 
-			if (valueObject.getDisciplinaNome() != null)
-			   return(false);
-		else if (!this.DisciplinaNome.equals(valueObject.getDisciplinaNome())) 
-			return(false);
+          if (valueObject.getIdquestao() != this.idquestao) {
+                    return(false);
+          }
+          if (this.questoes == null) {
+                    if (valueObject.getQuestoes() != null)
+                           return(false);
+          } else if (!this.questoes.equals(valueObject.getQuestoes())) {
+                    return(false);
+          }
+          if (this.respostas == null) {
+                    if (valueObject.getRespostas() != null)
+                           return(false);
+          } else if (!this.respostas.equals(valueObject.getRespostas())) {
+                    return(false);
+          }
 
-		return true;
+          return true;
     }
 
 
@@ -125,9 +145,14 @@ public class Disciplina implements Cloneable, Serializable
      * valueObject. This is useful during application development, and 
      * possibly when application is writing object states in textlog.
      */
-    public String toString() 
-	{ 
-        return this.DisciplinaNome;
+    public String toString() {
+        StringBuffer out = new StringBuffer(this.getDaogenVersion());
+        out.append("\nclass Questoes, mapping to table Questoes \n");
+        out.append("Persistent attributes: \n"); 
+        out.append("idquestao = " + this.idquestao + "\n"); 
+        out.append("questoes = " + this.questoes + "\n"); 
+        out.append("respostas = " + this.respostas + "\n"); 
+        return out.toString();
     }
 
 
@@ -137,24 +162,25 @@ public class Disciplina implements Cloneable, Serializable
      * is defined in java.lang.Object. Here, the retuned cloned object
      * will also have all its attributes cloned.
      */
-    public Object clone() 
-	{
-        Disciplina cloned = new Disciplina();
-		
-        cloned.setID(this.ID); 
-        if (this.DisciplinaNome != null)
-			cloned.setDisciplinaNome(new String(this.DisciplinaNome)); 
+    public Object clone() {
+        Questoes cloned = new Questoes();
+
+        cloned.setIdquestao(this.idquestao); 
+        if (this.questoes != null)
+             cloned.setQuestoes(new String(this.questoes)); 
+        if (this.respostas != null)
+             cloned.setRespostas(new String(this.respostas)); 
         return cloned;
     }
+
+
 
     /** 
      * getDaogenVersion will return information about
      * generator which created these sources.
      */
-    public String getDaogenVersion() 
-	{
+    public String getDaogenVersion() {
         return "DaoGen version 2.4.1";
     }
 
 }
-

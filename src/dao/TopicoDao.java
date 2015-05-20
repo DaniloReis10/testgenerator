@@ -4,14 +4,12 @@ import java.sql.*;
 import java.util.*;
 import java.math.*;
 import entities.*;
-import exceptions.NotFoundException;
-
-;
+import exceptions.*;
 
 /**
- * Disciplina Data Access Object (DAO).
+ * Topico Data Access Object (DAO).
  * This class contains all database handling that is needed to 
- * permanently store and retrieve Disciplina object instances. 
+ * permanently store and retrieve Topico object instances. 
  */
 
 /**
@@ -32,9 +30,8 @@ import exceptions.NotFoundException;
  * information. Thank you!
  */
 
-public class DisciplinaDao
+public class TopicoDao
 {
-
 	/**
 	 * createValueObject-method. This method is used when the Dao class needs to
 	 * create new value object instance. The reason why this method exists is
@@ -43,9 +40,9 @@ public class DisciplinaDao
 	 * If you extend the valueObject class, make sure to override the clone()
 	 * method in it!
 	 */
-	public Disciplina createValueObject()
+	public Topico createValueObject()
 	{
-		return new Disciplina();
+		return new Topico();
 	}
 
 	/**
@@ -55,10 +52,10 @@ public class DisciplinaDao
 	 * as a parameter. Returned valueObject will be created using the
 	 * createValueObject() method.
 	 */
-	public Disciplina getObject(Connection conn, int ID)
-			throws NotFoundException, SQLException
+	public Topico getObject(Connection conn, int ID) throws NotFoundException,
+			SQLException
 	{
-		Disciplina valueObject = createValueObject();
+		Topico valueObject = createValueObject();
 		valueObject.setID(ID);
 		load(conn, valueObject);
 		return valueObject;
@@ -79,11 +76,10 @@ public class DisciplinaDao
 	 *            This parameter contains the class instance to be loaded.
 	 *            Primary-key field must be set for this to work properly.
 	 */
-	public void load(Connection conn, Disciplina valueObject)
+	public void load(Connection conn, Topico valueObject)
 			throws NotFoundException, SQLException
 	{
-
-		String sql = "SELECT * FROM Disciplina WHERE (ID = ? ) ";
+		String sql = "SELECT * FROM Topico WHERE (ID = ? ) ";
 		PreparedStatement stmt = null;
 
 		try
@@ -92,6 +88,7 @@ public class DisciplinaDao
 			stmt.setInt(1, valueObject.getID());
 
 			singleQuery(conn, stmt, valueObject);
+
 		} finally
 		{
 			if (stmt != null)
@@ -110,7 +107,7 @@ public class DisciplinaDao
 	 */
 	public List loadAll(Connection conn) throws SQLException
 	{
-		String sql = "SELECT * FROM Disciplina ORDER BY ID ASC ";
+		String sql = "SELECT * FROM Topico ORDER BY ID ASC ";
 		List searchResults = listQuery(conn, conn.prepareStatement(sql));
 
 		return searchResults;
@@ -131,60 +128,32 @@ public class DisciplinaDao
 	 *            automatic surrogate-keys are not used the Primary-key field
 	 *            must be set for this to work properly.
 	 */
-	public synchronized void create(Connection conn, Disciplina valueObject)
+	public synchronized void create(Connection conn, Topico valueObject)
 			throws SQLException
 	{
-
 		String sql = "";
 		PreparedStatement stmt = null;
 		ResultSet result = null;
 
 		try
 		{
-			sql = "INSERT INTO Disciplina ( DisciplinaNome) VALUES (?) ";
+			sql = "INSERT INTO Topico ( ID, DisciplinaId, TopicoNome, CargaHoraria) VALUES (?, ?, ?, ?) ";
 			stmt = conn.prepareStatement(sql);
 
-			stmt.setString(1, valueObject.getDisciplinaNome());
+			stmt.setInt(1, valueObject.getID());
+			stmt.setInt(2, valueObject.getDisciplinaId());
+			stmt.setString(3, valueObject.getTopicoNome());
+			stmt.setInt(4, valueObject.getCargaHoraria());
 
 			int rowcount = databaseUpdate(conn, stmt);
 			if (rowcount != 1)
 			{
+				// System.out.println("PrimaryKey Error when updating DB!");
 				throw new SQLException("PrimaryKey Error when updating DB!");
 			}
 
 		} finally
 		{
-			if (stmt != null)
-				stmt.close();
-		}
-
-		/**
-		 * The following query will read the automatically generated primary key
-		 * back to valueObject. This must be done to make things consistent for
-		 * upper layer processing logic.
-		 */
-		sql = "SELECT last_insert_id()";
-
-		try
-		{
-			stmt = conn.prepareStatement(sql);
-			result = stmt.executeQuery();
-
-			if (result.next())
-			{
-
-				valueObject.setID((int) result.getLong(1));
-
-			} else
-			{
-				// System.out.println("Unable to find primary-key for created object!");
-				throw new SQLException(
-						"Unable to find primary-key for created object!");
-			}
-		} finally
-		{
-			if (result != null)
-				result.close();
 			if (stmt != null)
 				stmt.close();
 		}
@@ -204,27 +173,31 @@ public class DisciplinaDao
 	 *            This parameter contains the class instance to be saved.
 	 *            Primary-key field must be set for this to work properly.
 	 */
-	public void save(Connection conn, Disciplina valueObject)
+	public void save(Connection conn, Topico valueObject)
 			throws NotFoundException, SQLException
 	{
-		String sql = "UPDATE Disciplina SET DisciplinaNome = ? WHERE (ID = ? ) ";
+		String sql = "UPDATE Topico SET DisciplinaId = ?, TopicoNome = ?, CargaHoraria = ? WHERE (ID = ? ) ";
 		PreparedStatement stmt = null;
 
 		try
 		{
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, valueObject.getDisciplinaNome());
+			stmt.setInt(1, valueObject.getDisciplinaId());
+			stmt.setString(2, valueObject.getTopicoNome());
+			stmt.setInt(3, valueObject.getCargaHoraria());
 
-			stmt.setInt(2, valueObject.getID());
+			stmt.setInt(4, valueObject.getID());
 
 			int rowcount = databaseUpdate(conn, stmt);
 			if (rowcount == 0)
 			{
+				// System.out.println("Object could not be saved! (PrimaryKey not found)");
 				throw new NotFoundException(
 						"Object could not be saved! (PrimaryKey not found)");
 			}
 			if (rowcount > 1)
 			{
+				// System.out.println("PrimaryKey Error when updating DB! (Many objects were affected!)");
 				throw new SQLException(
 						"PrimaryKey Error when updating DB! (Many objects were affected!)");
 			}
@@ -250,11 +223,10 @@ public class DisciplinaDao
 	 *            This parameter contains the class instance to be deleted.
 	 *            Primary-key field must be set for this to work properly.
 	 */
-	public void delete(Connection conn, Disciplina valueObject)
+	public void delete(Connection conn, Topico valueObject)
 			throws NotFoundException, SQLException
 	{
-
-		String sql = "DELETE FROM Disciplina WHERE (ID = ? ) ";
+		String sql = "DELETE FROM Topico WHERE (ID = ? ) ";
 		PreparedStatement stmt = null;
 
 		try
@@ -298,8 +270,7 @@ public class DisciplinaDao
 	 */
 	public void deleteAll(Connection conn) throws SQLException
 	{
-
-		String sql = "DELETE FROM Disciplina";
+		String sql = "DELETE FROM Topico";
 		PreparedStatement stmt = null;
 
 		try
@@ -325,7 +296,7 @@ public class DisciplinaDao
 	 */
 	public int countAll(Connection conn) throws SQLException
 	{
-		String sql = "SELECT count(*) FROM Disciplina";
+		String sql = "SELECT count(*) FROM Topico";
 		PreparedStatement stmt = null;
 		ResultSet result = null;
 		int allRows = 0;
@@ -362,14 +333,13 @@ public class DisciplinaDao
 	 *            This parameter contains the class instance where search will
 	 *            be based. Primary-key field should not be set.
 	 */
-	public List searchMatching(Connection conn, Disciplina valueObject)
+	public List searchMatching(Connection conn, Topico valueObject)
 			throws SQLException
 	{
 		List searchResults;
 
 		boolean first = true;
-		StringBuffer sql = new StringBuffer(
-				"SELECT * FROM Disciplina WHERE 1=1 ");
+		StringBuffer sql = new StringBuffer("SELECT * FROM Topico WHERE 1=1 ");
 
 		if (valueObject.getID() != 0)
 		{
@@ -380,14 +350,34 @@ public class DisciplinaDao
 			sql.append("AND ID = ").append(valueObject.getID()).append(" ");
 		}
 
-		if (valueObject.getDisciplinaNome() != null)
+		if (valueObject.getDisciplinaId() != 0)
 		{
 			if (first)
 			{
 				first = false;
 			}
-			sql.append("AND DisciplinaNome LIKE '")
-					.append(valueObject.getDisciplinaNome()).append("%' ");
+			sql.append("AND DisciplinaId = ")
+					.append(valueObject.getDisciplinaId()).append(" ");
+		}
+
+		if (valueObject.getTopicoNome() != null)
+		{
+			if (first)
+			{
+				first = false;
+			}
+			sql.append("AND TopicoNome LIKE '")
+					.append(valueObject.getTopicoNome()).append("%' ");
+		}
+
+		if (valueObject.getCargaHoraria() != 0)
+		{
+			if (first)
+			{
+				first = false;
+			}
+			sql.append("AND CargaHoraria = ")
+					.append(valueObject.getCargaHoraria()).append(" ");
 		}
 
 		sql.append("ORDER BY ID ASC ");
@@ -447,7 +437,7 @@ public class DisciplinaDao
 	 *            Class-instance where resulting data will be stored.
 	 */
 	protected void singleQuery(Connection conn, PreparedStatement stmt,
-			Disciplina valueObject) throws NotFoundException, SQLException
+			Topico valueObject) throws NotFoundException, SQLException
 	{
 		ResultSet result = null;
 
@@ -459,13 +449,14 @@ public class DisciplinaDao
 			{
 
 				valueObject.setID(result.getInt("ID"));
-				valueObject.setDisciplinaNome(result
-						.getString("DisciplinaNome"));
+				valueObject.setDisciplinaId(result.getInt("DisciplinaId"));
+				valueObject.setTopicoNome(result.getString("TopicoNome"));
+				valueObject.setCargaHoraria(result.getInt("CargaHoraria"));
 
 			} else
 			{
-				// System.out.println("Disciplina Object Not Found!");
-				throw new NotFoundException("Disciplina Object Not Found!");
+				// System.out.println("Topico Object Not Found!");
+				throw new NotFoundException("Topico Object Not Found!");
 			}
 		} finally
 		{
@@ -499,10 +490,12 @@ public class DisciplinaDao
 
 			while (result.next())
 			{
-				Disciplina temp = createValueObject();
+				Topico temp = createValueObject();
 
 				temp.setID(result.getInt("ID"));
-				temp.setDisciplinaNome(result.getString("DisciplinaNome"));
+				temp.setDisciplinaId(result.getInt("DisciplinaId"));
+				temp.setTopicoNome(result.getString("TopicoNome"));
+				temp.setCargaHoraria(result.getInt("CargaHoraria"));
 
 				searchResults.add(temp);
 			}
