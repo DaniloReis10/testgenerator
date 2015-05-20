@@ -1,0 +1,20 @@
+.conteudo {
+	text-align: justify;
+	margin-left: 40%;
+}
+
+.anterior {
+	margin-top: 20px;
+	margin-left: 20%;
+}
+
+.proximo {
+	margin-top: 20px;
+	margin-left: 40%;
+}
+
+.finalizar {
+	position: absolute;
+	top: 30px;
+	right: 100px;
+}
