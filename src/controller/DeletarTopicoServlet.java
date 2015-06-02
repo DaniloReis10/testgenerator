@@ -9,23 +9,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import dao.DisciplinaDao;
 import dao.TopicoDao;
-import entities.Disciplina;
 import entities.Topico;
 
 @WebServlet("/topico/deletar")
 public class DeletarTopicoServlet extends HttpServlet
 {
+	private static final long serialVersionUID = 1L;
+
 	protected void processPostRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
-		HttpSession session = request.getSession(false);
-		
+	{	
 		String idTopico = request.getParameter("id");
 		TopicoDao daoTopico = new TopicoDao();
 		List<Topico> topico = daoTopico.select(Integer.parseInt(idTopico));

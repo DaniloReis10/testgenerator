@@ -8,8 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import java.util.List;
 
 import org.json.JSONException;
@@ -26,8 +24,6 @@ public class DeletarDisciplinaServlet extends HttpServlet
 
 	protected void processPostRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		HttpSession session = request.getSession(false);
-		
 		String idDisciplina = request.getParameter("id");
 		DisciplinaDao daoDisciplina = new DisciplinaDao();
 		List<Disciplina> disciplina = daoDisciplina.select(Integer.parseInt(idDisciplina));
