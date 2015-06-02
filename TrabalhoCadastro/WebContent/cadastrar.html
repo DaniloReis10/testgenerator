@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">  
+<html>  
+<head>  
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">  
+<title>Pagina de Cadastro</title>  
+<script type="text/javascript" src="js/jquery.js"></script>  
+<script type="text/javascript" src="js/jquery.validate.js"></script>  
+</head>  
+<body>  
+<?php
+ 
+$login = $_POST['login'];
+$senha = MD5($_POST['senha']);
+$connect = mysql_connect('localhost:3306','root','123456');
+$db = mysql_select_db('cadastro');
+$query_select = "SELECT login FROM usuarios WHERE login = '$login'";
+$select = mysql_query($query_select,$connect);
+$array = mysql_fetch_array($select);
+$logarray = $array['login'];
+ 
+    if($login == "" || $login == null){
+        echo"<script language='javascript' type='text/javascript'>alert('O campo login deve ser preenchido');window.location.href='cadastro.html';</script>";
+ 
+        }else{
+            if($logarray == $login){
+ 
+                echo"<script language='javascript' type='text/javascript'>alert('Esse login já existe');window.location.href='cadastro.html';</script>";
+                die();
+ 
+            }else{
+                $query = "INSERT INTO usuarios (login,senha) VALUES ('$login','$senha')";
+                $insert = mysql_query($query,$connect);
+                 
+                if($insert){
+                    echo"<script language='javascript' type='text/javascript'>alert('Usuário cadastrado com sucesso!');window.location.href='login.html'</script>";
+                }else{
+                    echo"<script language='javascript' type='text/javascript'>alert('Não foi possível cadastrar esse usuário');window.location.href='cadastro.html'</script>";
+                }
+            }
+        }
+?>
+
+<h3>Cadastro de Usuários</h3>  
+<p/><hr/><p/>  
+<form method="post" id="formcadastro" action="cadastro.php">  
+Nome:  
+    <input type="text" name="nome" size="15" /><p/>  
+Login:   
+    <input type="text" name="login" size="15" /><p/>  
+Senha:         
+    <label for="txtSenha">Senha</label>
+					<input id="txtSenha" name="senha" type="password" required placeholder="Digite uma Senha" title="Senha" />
+					<label for="repetir_senha">Confirmar Senha</label>
+					<input id="repetir_senha" name="repetir_senha" type="password" required  placeholder="Repetir Senha" title="Repetir Senha" oninput="validaSenha(this)" /><p/> 
+Função:  
+    <select name="nivel">  
+        <option value="PROF">Professor(a)</option>  
+        <option value="COMUM">Aluno(a)</option>  
+    </select><p/>  
+<input type="submit" value="Cadastrar" />  
+<input type="reset" value="Apagar os dados" /><p/>  
+<p/>  
+<a href="login.html">Clique aqui</a> para voltar para a página inicial.<p/>  
+</form>  
+</body>  
+</html>
+<script>
+function validaSenha (input){ 
+	if (input.value != document.getElementById('txtSenha').value) {
+    input.setCustomValidity('Repita a senha corretamente');
+  } else {
+    input.setCustomValidity('');
+  }
+} 
+</script>
