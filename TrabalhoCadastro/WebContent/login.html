@@ -5,35 +5,7 @@
 <title>Login</title>  
 </head>  
 <body>  
-<?php
-    $login = $_POST['login'];
-    $logar = $_POST['logar'];
-    $senha = md5($_POST['senha']);
-    $connect = mysql_connect('localhost:3306','root','123456');
-    $db = mysql_select_db('cadastro');
-        if (isset($logar)) {
-                     
-            $verifica = mysql_query("SELECT * FROM usuarios WHERE login = '$login' AND senha = '$senha'") or die("erro ao selecionar");
-                if (mysql_num_rows($verifica)<=0){
-                    echo"<script language='javascript' type='text/javascript'>alert('Login e/ou senha incorretos');window.location.href='login.html';</script>";
-                    die();
-                }else{
-                    setcookie("login",$login);
-                    header("Location:index.php");
-                }
-        }
-?>
-<?php
-    $login_cookie = $_COOKIE['login'];
-        if(isset($login_cookie)){
-            echo"Bem-Vindo, $login_cookie <br>";
-            echo"Essas informações <font color='red'>PODEM</font> ser acessadas por você";
-        }else{
-            echo"Bem-Vindo, convidado <br>";
-            echo"Essas informações <font color='red'>NÃO PODEM</font> ser acessadas por você";
-            echo"<br><a href='login.html'>Faça Login</a> Para ler o conteúdo";
-        }
-?>
+
 
 <h3>Login</h3>  
 <p/><hr/><p/>  
