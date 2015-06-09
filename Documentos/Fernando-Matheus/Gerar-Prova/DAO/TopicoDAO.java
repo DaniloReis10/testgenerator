@@ -10,6 +10,12 @@ import java.util.List;
 import javabeans.Topico;
 import conexao.Conexao;
 
+/**
+ * TopicoDAO é a classe responsavel pelos metodos da persistencia da classe topico, para buscar nome, chave primaria, chave estrangeira entre outro dados.
+ *  @author Fernando Matheus
+ *
+ */
+
 public class TopicoDAO {
 	
 	private Connection con = Conexao.getConnection();
@@ -60,6 +66,32 @@ public class TopicoDAO {
 		} catch (SQLException e) {
 			System.out.println("Erro - "+e.getMessage());
 		}return lista;
+		
+		
+	}
+	
+	public int buscarId(String nome){
+		
+		String sql ="SELECT * FROM topico WHERE nome = ?";
+		
+		try {
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, nome);
+			
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()) {
+               int teste1 = rs.getInt("idTopico");
+                return teste1;
+                
+            }            
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+		return 0;
+		
 		
 		
 	}
