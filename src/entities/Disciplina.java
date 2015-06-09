@@ -10,11 +10,19 @@ public class Disciplina
 	private int ID;
 	private String DisciplinaNome;
 	
+	/**
+	 * Instância de um novo objeto disciplina
+	 */
 	public Disciplina()
 	{
 		
 	}
 	
+	/**
+	 * Instância de um novo objeto disciplina
+	 * @param ID
+	 * @param disciplinaNome
+	 */
 	public Disciplina(int ID, String disciplinaNome)
 	{
 		this.ID = ID;

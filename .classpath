@@ -14,6 +14,7 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Italo/Desktop/java-json.jar"/>
+	<classpathentry kind="lib" path="D:/UNIFOR/TECNOLOGIAS DE INTERNET I/java_library/java-json.jar"/>
+	<classpathentry kind="lib" path="D:/UNIFOR/TECNOLOGIAS DE INTERNET I/java_library/jstl-1.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

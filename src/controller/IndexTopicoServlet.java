@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.TopicoDao;
 
@@ -14,11 +15,19 @@ import dao.TopicoDao;
 public class IndexTopicoServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-
+	
+	/**
+	 * Processa as requisições GET da página
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		TopicoDao topicos = new TopicoDao();
-		request.setAttribute("topicos", topicos.select(0));
+		request.setAttribute("topicos", topicos.select(0)); // busca todos os tópicos no banco de dados
+		
 		getServletConfig().getServletContext()
 				.getRequestDispatcher("/topico/index.jsp")
 				.forward(request, response);

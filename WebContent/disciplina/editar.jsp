@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="entities.Disciplina,java.util.ArrayList"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,50 +20,39 @@
 				<legend>Editar disciplina</legend>
 			</fieldset>
 			
-			<%
-				if (session.getAttribute("erro") != null)
-				{ 
-			%>
-			<div class="alert alert-dismissible alert-danger">
-				<strong>Erro!</strong>
-				<%= session.getAttribute("erro") %>
-			</div>
-			<%
-					session.removeAttribute("erro");
-				}
-			%>
-
-			<%
-				if (session.getAttribute("sucesso") != null)
-				{
-			%>
-			<div class="alert alert-dismissible alert-success">
-				<strong>Sucesso!</strong>
-				<%= session.getAttribute("sucesso") %>
-			</div>
-			<%
-					session.removeAttribute("sucesso");
-				}
-			%>
+			<c:if test="${sessionScope.erro != null}">
+				<div class="alert alert-dismissible alert-danger">
+					<strong>Erro!</strong>
+					<c:out value="${sessionScope.erro}"></c:out>
+				</div>
+				
+				<c:remove var="erro" scope="session" />
+			</c:if>
 			
-			<%
-				ArrayList<Disciplina> disciplina = (ArrayList<Disciplina>) request.getAttribute("disciplina");
-			%>
+			<c:if test="${sessionScope.sucesso != null}">
+				<div class="alert alert-dismissible alert-success">
+					<strong>Sucesso!</strong>
+					<c:out value="${sessionScope.sucesso}"></c:out>
+				</div>
+				
+				<c:remove var="sucesso" scope="session" />
+			</c:if>
 			
 			<div class="row">
 				<form class="form-horizontal" id="editarDisciplina" action="${pageContext.request.contextPath}/disciplina/editar" method="post" enctype="application/x-www-form-urlencoded">
-					<input type="hidden" name="id" value="<%= disciplina.get(0).getID() %>" />
+					<input type="hidden" name="id" value="<c:out value="${requestScope.disciplina.ID}"></c:out>" />
 					<div class="form-group">
 						<label for="inputNome" class="col-lg-2 control-label">Nome</label>
 						<div class="col-lg-10">
-							<input type="text" class="form-control" id="inputNome" name="inputNome" placeholder="Nome descritivo da disciplina" value="<%= disciplina.get(0).getDisciplinaNome() %>">
+							<input type="text" class="form-control" id="inputNome" name="inputNome" placeholder="Nome descritivo da disciplina" value="<c:out value="${requestScope.disciplina.disciplinaNome}"></c:out>">
 						</div>
 					</div>
 
 					
 					<div class="form-group">
-						<div class="col-lg-3 col-lg-offset-9">
+						<div class="col-lg-12 col-lg-offset-7">
 							<button type="submit" class="btn btn-primary">Salvar</button>
+							<button type="button" class="btn btn-primary" onclick="window.location = '${pageContext.request.contextPath}/disciplina'">Voltar</button>
 						</div>
 					</div>
 

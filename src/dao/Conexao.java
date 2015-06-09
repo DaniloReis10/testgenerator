@@ -11,7 +11,12 @@ public class Conexao
 {
 	private PreparedStatement pstmt = null;
 	private Statement stmt = null;
-
+	
+	/**
+	 * Conecta com o banco de dados e retorna a conexão
+	 * @return Connection
+	 * @throws SQLException
+	 */
 	public Connection getConnection() throws SQLException
 	{
 
@@ -27,7 +32,12 @@ public class Conexao
 
 		return conn;
 	}
-
+	
+	/**
+	 * Executa um update no banco de dados
+	 * @param conn
+	 * @param query
+	 */
 	public void executePreparedUpdate(Connection conn, String query)
 	{
 
@@ -43,7 +53,12 @@ public class Conexao
 			release(pstmt);
 		}
 	}
-
+	
+	/**
+	 * Executa um insert no banco de dados
+	 * @param conn
+	 * @param query
+	 */
 	public void executePreparedInsert(Connection conn, String query)
 	{
 
@@ -77,7 +92,11 @@ public class Conexao
 		}
 
 	}
-
+	
+	/**
+	 * Libera a conexão com o banco de dados
+	 * @param stmt
+	 */
 	public void release(Statement stmt)
 	{
 		if (stmt == null)
@@ -89,7 +108,11 @@ public class Conexao
 		{
 		}
 	}
-
+	
+	/**
+	 * Libera a conexão com o banco de dados
+	 * @param conn
+	 */
 	public void release(Connection conn)
 	{
 
@@ -103,7 +126,11 @@ public class Conexao
 		}
 
 	}
-
+	
+	/**
+	 * Libera a conexão com o banco de dados
+	 * @param rset
+	 */
 	public void release(ResultSet rset)
 	{
 		if (rset == null)
@@ -115,13 +142,24 @@ public class Conexao
 		{
 		}
 	}
-
+	
+	/**
+	 * Libera a conexão com o banco de dados
+	 * @param conn
+	 * @param stmt
+	 */
 	public void releaseAll(Connection conn, Statement stmt)
 	{
 		release(stmt);
 		release(conn);
 	}
-
+	
+	/**
+	 * Libera a conexão com o banco de dados
+	 * @param conn
+	 * @param stmt
+	 * @param rset
+	 */
 	public void releaseAll(Connection conn, Statement stmt, ResultSet rset)
 	{
 		release(rset);

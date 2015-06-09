@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="entities.Disciplina,java.util.ArrayList"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,31 +19,23 @@
 				<legend>Lista de Disciplinas</legend>
 			</fieldset>
 
-			<%
-				if (session.getAttribute("erro") != null)
-				{ 
-			%>
-			<div class="alert alert-dismissible alert-danger">
-				<strong>Erro!</strong>
-				<%= session.getAttribute("erro") %>
-			</div>
-			<%
-					session.removeAttribute("erro");
-				}
-			%>
-
-			<%
-				if (session.getAttribute("sucesso") != null)
-				{
-			%>
-			<div class="alert alert-dismissible alert-success">
-				<strong>Sucesso!</strong>
-				<%= session.getAttribute("sucesso") %>
-			</div>
-			<%
-					session.removeAttribute("sucesso");
-				}
-			%>
+			<c:if test="${sessionScope.erro != null}">
+				<div class="alert alert-dismissible alert-danger">
+					<strong>Erro!</strong>
+					<c:out value="${sessionScope.erro}"></c:out>
+				</div>
+				
+				<c:remove var="erro" scope="session" />
+			</c:if>
+			
+			<c:if test="${sessionScope.sucesso != null}">
+				<div class="alert alert-dismissible alert-success">
+					<strong>Sucesso!</strong>
+					<c:out value="${sessionScope.sucesso}"></c:out>
+				</div>
+				
+				<c:remove var="sucesso" scope="session" />
+			</c:if>
 
 			
 			<a href="${pageContext.request.contextPath}/topico" class="right">- Tópicos</a><br /><br />
@@ -53,31 +46,22 @@
 					class="table table-striped table-hover text-center table-bordered">
 					<thead>
 						<tr>
-							<th class="text-center">ID</th>
 							<th class="text-center">Disciplina</th>
 							<th class="text-center">Ações</th>
 						</tr>
 					</thead>
 					<tbody>
-
-						<%
-							ArrayList<Disciplina> disciplinas = (ArrayList<Disciplina>) request.getAttribute("disciplinas");
-							if (disciplinas.size() > 0)
-							{
-								for (Disciplina disciplina : disciplinas) {
-						%>
-						<tr>
-							<td><%=String.valueOf(disciplina.getID())%></td>
-							<td><%=disciplina.getDisciplinaNome()%></td>
-							<td>
-								<a href="${pageContext.request.contextPath}/disciplina/editar?id=<%= String.valueOf(disciplina.getID()) %>">Editar</a>
-								<a href="javascript:void(0);" onclick="test.deletar(<%=String.valueOf(disciplina.getID())%>);">Excluir</a>
-							</td>
-						</tr>
-						<%
-								} 
-							}
-						%>
+						<c:if test="${fn:length(disciplinas) gt 0}">
+							<c:forEach var="disciplina" items="${disciplinas}">
+								<tr>
+									<td><c:out value="${disciplina.disciplinaNome}"></c:out></td>
+									<td>
+										<a href="${pageContext.request.contextPath}/disciplina/editar?id=${disciplina.ID}">Editar</a>
+										<a href="javascript:void(0);" onclick="test.deletar(${disciplina.ID});">Excluir</a>
+									</td>
+								</tr>
+							</c:forEach>
+						</c:if>
 					</tbody>
 				</table>
 			</div>

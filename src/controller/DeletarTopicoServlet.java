@@ -20,7 +20,14 @@ import entities.Topico;
 public class DeletarTopicoServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-
+	
+	/**
+	 * Processa as requisiçoes POST da página
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void processPostRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{	
 		String idTopico = request.getParameter("id");
@@ -29,9 +36,9 @@ public class DeletarTopicoServlet extends HttpServlet
 		
 		JSONObject json = new JSONObject();
 		if (topico.size() > 0)
-		{
-			if (daoTopico.delete(topico.get(0)))
-			{
+		{ // caso o tópico exista
+			if (daoTopico.delete(topico.get(0))) 
+			{ // caso consiga deletar o tópico
 				try
 				{
 					json.accumulate("status", "1");
@@ -40,9 +47,19 @@ public class DeletarTopicoServlet extends HttpServlet
 				{
 					// nothing to do here...
 				}
+			}else 
+			{ // caso não consiga
+				try
+				{
+					json.accumulate("status", "0");
+					json.accumulate("msg", "Registro não encontrado.");
+				} catch (JSONException e)
+				{
+					// nothing to do here...
+				}
 			}
 		}else
-		{
+		{ // caso o tópico não exista
 			try
 			{
 				json.accumulate("status", "0");
@@ -53,6 +70,7 @@ public class DeletarTopicoServlet extends HttpServlet
 			}
 		}
 		
+		// retorna o json
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 		out.print(json.toString());

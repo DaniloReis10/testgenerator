@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="entities.Topico,entities.Disciplina,java.util.ArrayList"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,31 +20,23 @@
 				<legend>Adicionar tópico</legend>
 			</fieldset>
 			
-			<%
-				if (session.getAttribute("erro") != null)
-				{ 
-			%>
-			<div class="alert alert-dismissible alert-danger">
-				<strong>Erro!</strong>
-				<%= session.getAttribute("erro") %>
-			</div>
-			<%
-					session.removeAttribute("erro");
-				}
-			%>
-
-			<%
-				if (session.getAttribute("sucesso") != null)
-				{
-			%>
-			<div class="alert alert-dismissible alert-success">
-				<strong>Sucesso!</strong>
-				<%= session.getAttribute("sucesso") %>
-			</div>
-			<%
-					session.removeAttribute("sucesso");
-				}
-			%>
+			<c:if test="${sessionScope.erro != null}">
+				<div class="alert alert-dismissible alert-danger">
+					<strong>Erro!</strong>
+					<c:out value="${sessionScope.erro}"></c:out>
+				</div>
+				
+				<c:remove var="erro" scope="session" />
+			</c:if>
+			
+			<c:if test="${sessionScope.sucesso != null}">
+				<div class="alert alert-dismissible alert-success">
+					<strong>Sucesso!</strong>
+					<c:out value="${sessionScope.sucesso}"></c:out>
+				</div>
+				
+				<c:remove var="sucesso" scope="session" />
+			</c:if>
 			
 			<div class="row">
 				<form class="form-horizontal" id="novoTopico" action="${pageContext.request.contextPath}/topico/adicionar" method="post" enctype="application/x-www-form-urlencoded">
@@ -53,18 +45,9 @@
 						<div class="col-lg-9">
 							<select class="form-control" id="inputDisciplina" name="inputDisciplina">
 								<option value="">Selecione...</option>
-								<% 
-								ArrayList<Disciplina> disciplinas = (ArrayList<Disciplina>) request.getAttribute("disciplinas");
-								if (disciplinas.size() > 0)
-								{
-									for (Disciplina disciplina : disciplinas)
-									{
-								%>
-									<option value="<%= disciplina.getID() %>"><%= disciplina.getDisciplinaNome() %></option>
-								<%
-									}
-								}
-								%>
+								<c:forEach var="disciplina" items="${disciplinas}">
+									<option value="${disciplina.ID}"><c:out value="${disciplina.disciplinaNome}"></c:out></option>
+								</c:forEach>
 							</select>
 						</div>
 					</div>
@@ -78,8 +61,9 @@
 
 					
 					<div class="form-group">
-						<div class="col-lg-3 col-lg-offset-9">
+						<div class="col-lg-12 col-lg-offset-7">
 							<button type="submit" class="btn btn-primary">Salvar</button>
+							<button type="button" class="btn btn-primary" onclick="window.location = '${pageContext.request.contextPath}/topico'">Voltar</button>
 						</div>
 					</div>
 				</form>

@@ -14,11 +14,18 @@ import dao.DisciplinaDao;
 public class IndexDisciplinaServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-
+	
+	/**
+	 * Processa as requisições GET da página
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		DisciplinaDao daoDisciplina = new DisciplinaDao();
-		request.setAttribute("disciplinas", daoDisciplina.select(0));
+		request.setAttribute("disciplinas", daoDisciplina.select(0)); // busca todas as disciplinas no banco de dados
 		getServletConfig().getServletContext()
 				.getRequestDispatcher("/disciplina/index.jsp")
 				.forward(request, response);

@@ -21,7 +21,14 @@ import entities.Disciplina;
 public class DeletarDisciplinaServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-
+	
+	/**
+	 * Processa as requisiçoes POST da página
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void processPostRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String idDisciplina = request.getParameter("id");
@@ -30,12 +37,12 @@ public class DeletarDisciplinaServlet extends HttpServlet
 		
 		JSONObject json = new JSONObject();
 		if (disciplina.size() > 0)
-		{
+		{ // caso a disciplina exista...
 			// deletando os tópicos
 			TopicoDao daoTopico = new TopicoDao();
 			daoTopico.delete(disciplina.get(0));
 			
-			if (daoDisciplina.delete(disciplina.get(0)))
+			if (daoDisciplina.delete(disciplina.get(0))) // caso consiga deletar a disciplina
 			{
 				try
 				{
@@ -45,9 +52,19 @@ public class DeletarDisciplinaServlet extends HttpServlet
 				{
 					// nothing to do here...
 				}
+			}else 
+			{ // caso não consiga deletar a disciplina
+				try
+				{
+					json.accumulate("status", "0");
+					json.accumulate("msg", "Registro não encontrado.");
+				} catch (JSONException e)
+				{
+					// nothing to do here...
+				}
 			}
 		}else
-		{
+		{ // caso a disciplina não exista
 			try
 			{
 				json.accumulate("status", "0");
@@ -58,6 +75,7 @@ public class DeletarDisciplinaServlet extends HttpServlet
 			}
 		}
 		
+		// retorna o json
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 		out.print(json.toString());

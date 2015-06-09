@@ -7,16 +7,22 @@ import java.math.*;
 
 public class Topico
 {
-	private int ID;
-	private int DisciplinaID;
-	private String DisciplinaNome;
-	private String TopicoNome;
+	public int ID;
+	public int DisciplinaID;
+	public String DisciplinaNome;
+	public String TopicoNome;
 	
 	public Topico()
 	{
 		
 	}
 	
+	/**
+	 * Instancia de um novo objeto tópico
+	 * @param iD
+	 * @param disciplinaID
+	 * @param topicoNome
+	 */
 	public Topico(int iD, int disciplinaID, String topicoNome)
 	{
 		ID = iD;
@@ -24,6 +30,13 @@ public class Topico
 		TopicoNome = topicoNome;
 	}
 	
+	/**
+	 * Instância de um novo objeto tópico
+	 * @param iD
+	 * @param disciplinaID
+	 * @param topicoNome
+	 * @param disciplinaNome
+	 */
 	public Topico(int iD, int disciplinaID, String topicoNome, String disciplinaNome)
 	{
 		ID = iD;

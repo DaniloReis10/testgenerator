@@ -17,7 +17,14 @@ import entities.Disciplina;
 public class EditarDisciplinaServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-
+	
+	/**
+	 * Processa as requisições GET da página
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		HttpSession session = request.getSession(false);
@@ -30,24 +37,31 @@ public class EditarDisciplinaServlet extends HttpServlet
 			List<Disciplina> disciplina = daoDisciplina.select(Integer.parseInt(idDisciplina));
 			
 			if (disciplina.size() > 0)
-			{
-				request.setAttribute("disciplina", disciplina);
+			{ // caso a busca retorne alguma disciplina
+				request.setAttribute("disciplina", disciplina.get(0));
 				getServletConfig().getServletContext()
 						.getRequestDispatcher("/disciplina/editar.jsp")
 						.forward(request, response);
 			}else
-			{
+			{ // caso contrario retorna o erro
 				session.setAttribute("erro", "Disciplina não encontrada.");
 				response.sendRedirect(request.getContextPath() + "/disciplina");
 			}
 		}else
-		{
+		{ // caso o ID seja null, retorna o erro
 			session.setAttribute("erro", "Disciplina não encontrada.");
-			response.sendRedirect(request.getContextPath() + "/disciplina");
+			response.sendRedirect(request.getContextPath() + "/disciplina"); // redireciona para a página
 		}
 		
 	}
 	
+	/**
+	 * Processa as requisiçoes POST da página
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void processPostRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String idDisciplina = request.getParameter("id");
@@ -56,20 +70,20 @@ public class EditarDisciplinaServlet extends HttpServlet
 		List<Disciplina> disciplina = daoDisciplina.select(Integer.parseInt(idDisciplina));
 		
 		if (disciplina.size() > 0)
-		{
+		{ // caso encontre a disciplina que deseja atualizar
 			String disciplinaNome = request.getParameter("inputNome");
 			disciplina.get(0).setDisciplinaNome(disciplinaNome);
 			
 			HttpSession session = request.getSession(false);
-			if (daoDisciplina.update(disciplina.get(0)))
+			if (daoDisciplina.update(disciplina.get(0))) // caso consigar editar a disciplina
 			{
 				session.setAttribute("sucesso", "Disciplina editada.");
-			}else
+			}else // caso não consiga, retorna o erro
 			{
 				session.setAttribute("erro", "Ocorreu um erro interno ao tentar editar a disciplina. Por favor, tente novamente.");
 			}
 			
-			response.sendRedirect(request.getContextPath() + "/disciplina");
+			response.sendRedirect(request.getContextPath() + "/disciplina"); // redireciona para a página
 		}
 	}
 	
